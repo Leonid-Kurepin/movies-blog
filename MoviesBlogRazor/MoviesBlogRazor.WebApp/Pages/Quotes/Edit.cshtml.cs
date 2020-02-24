@@ -29,7 +29,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
                 return NotFound();
             }
 
-            Quote = await _context.Quote.FirstOrDefaultAsync(m => m.QuoteId == id);
+            Quote = await _context.Quotes.FirstOrDefaultAsync(m => m.QuoteId == id);
 
             if (Quote == null)
             {
@@ -68,7 +68,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
 
         private bool QuoteExists(int id)
         {
-            return _context.Quote.Any(e => e.QuoteId == id);
+            return _context.Quotes.Any(e => e.QuoteId == id);
         }
     }
 }

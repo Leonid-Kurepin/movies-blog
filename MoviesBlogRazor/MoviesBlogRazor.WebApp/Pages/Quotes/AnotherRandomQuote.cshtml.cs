@@ -31,7 +31,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
 
         public async Task OnGetAsync()
         {
-            var anotherQuotesList = await _context.Quote.Where(q => q.QuoteId != _currentQuoteId).ToListAsync();
+            var anotherQuotesList = await _context.Quotes.Where(q => q.QuoteId != _currentQuoteId).ToListAsync();
 
             Random random = new Random();
 

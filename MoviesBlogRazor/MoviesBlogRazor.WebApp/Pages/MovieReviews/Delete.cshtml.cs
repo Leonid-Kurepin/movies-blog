@@ -28,7 +28,7 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
                 return NotFound();
             }
 
-            MovieReview = await _context.MovieReview.FirstOrDefaultAsync(m => m.MovieReviewId == id);
+            MovieReview = await _context.MovieReviews.FirstOrDefaultAsync(m => m.MovieReviewId == id);
 
             if (MovieReview == null)
             {
@@ -44,11 +44,11 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
                 return NotFound();
             }
 
-            MovieReview = await _context.MovieReview.FindAsync(id);
+            MovieReview = await _context.MovieReviews.FindAsync(id);
 
             if (MovieReview != null)
             {
-                _context.MovieReview.Remove(MovieReview);
+                _context.MovieReviews.Remove(MovieReview);
                 await _context.SaveChangesAsync();
             }
 

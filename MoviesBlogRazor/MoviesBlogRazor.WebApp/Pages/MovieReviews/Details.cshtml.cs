@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MoviesBlogRazor.WebApp.Models;
+using System.Threading.Tasks;
 
 namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
 {
@@ -27,7 +24,7 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
                 return NotFound();
             }
 
-            MovieReview = await _context.MovieReview.FirstOrDefaultAsync(m => m.MovieReviewId == id);
+            MovieReview = await _context.MovieReviews.FirstOrDefaultAsync(m => m.MovieReviewId == id);
 
             if (MovieReview == null)
             {

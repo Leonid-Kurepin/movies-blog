@@ -21,7 +21,7 @@ namespace MoviesBlogRazor.WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            QuoteList = await _context.Quote.ToListAsync();
+            QuoteList = await _context.Quotes.ToListAsync();
 
             Random random = new Random();
 

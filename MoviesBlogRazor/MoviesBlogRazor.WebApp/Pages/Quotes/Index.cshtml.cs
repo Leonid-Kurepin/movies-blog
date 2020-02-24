@@ -22,7 +22,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
 
         public async Task OnGetAsync()
         {
-            Quote = await _context.Quote.ToListAsync();
+            Quote = await _context.Quotes.ToListAsync();
         }
     }
 }

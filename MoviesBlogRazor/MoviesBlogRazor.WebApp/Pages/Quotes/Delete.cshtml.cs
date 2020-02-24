@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MoviesBlogRazor.WebApp.Models;
+using System.Threading.Tasks;
 
 namespace MoviesBlogRazor.WebApp.Pages.Quotes
 {
@@ -28,7 +25,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
                 return NotFound();
             }
 
-            Quote = await _context.Quote.FirstOrDefaultAsync(m => m.QuoteId == id);
+            Quote = await _context.Quotes.FirstOrDefaultAsync(m => m.QuoteId == id);
 
             if (Quote == null)
             {
@@ -44,11 +41,11 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
                 return NotFound();
             }
 
-            Quote = await _context.Quote.FindAsync(id);
+            Quote = await _context.Quotes.FindAsync(id);
 
             if (Quote != null)
             {
-                _context.Quote.Remove(Quote);
+                _context.Quotes.Remove(Quote);
                 await _context.SaveChangesAsync();
             }
 

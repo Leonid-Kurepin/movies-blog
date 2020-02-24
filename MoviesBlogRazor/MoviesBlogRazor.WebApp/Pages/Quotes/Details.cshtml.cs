@@ -27,7 +27,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
                 return NotFound();
             }
 
-            Quote = await _context.Quote.FirstOrDefaultAsync(m => m.QuoteId == id);
+            Quote = await _context.Quotes.FirstOrDefaultAsync(m => m.QuoteId == id);
 
             if (Quote == null)
             {

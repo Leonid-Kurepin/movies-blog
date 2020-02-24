@@ -33,7 +33,7 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
                 return Page();
             }
 
-            _context.Quote.Add(Quote);
+            _context.Quotes.Add(Quote);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

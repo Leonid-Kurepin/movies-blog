@@ -33,7 +33,7 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
                 return Page();
             }
 
-            _context.MovieReview.Add(MovieReview);
+            _context.MovieReviews.Add(MovieReview);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -11,9 +11,9 @@ namespace MoviesBlogRazor.WebApp.Models
         {
         }
 
-        public DbSet<MovieReview> MovieReview { get; set; }
+        public DbSet<MovieReview> MovieReviews { get; set; }
 
-        public DbSet<Quote> Quote { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

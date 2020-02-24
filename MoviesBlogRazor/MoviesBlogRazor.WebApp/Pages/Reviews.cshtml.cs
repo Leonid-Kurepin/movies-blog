@@ -19,7 +19,7 @@ namespace MoviesBlogRazor.WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            MovieReview = await _context.MovieReview.ToListAsync();
+            MovieReview = await _context.MovieReviews.ToListAsync();
         }
     }
 }
