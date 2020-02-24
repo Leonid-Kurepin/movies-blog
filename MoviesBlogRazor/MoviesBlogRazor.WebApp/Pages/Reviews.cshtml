@@ -1,0 +1,84 @@
+﻿@page
+@model MoviesBlogRazor.WebApp.Pages.ReviewsModel
+@{
+    ViewData["Title"] = "Мои обзоры";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="./MovieReviews/Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].MyRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].Review)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieReview[0].ReviewDateCreated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MovieReview)
+        {
+            <tr id="@item.MovieReviewId">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MyRating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Review)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewDateCreated)
+                </td>
+                <td>
+                    <a asp-page="./MovieReviews/Edit" asp-route-id="@item.MovieReviewId">Edit</a> |
+                    <a asp-page="./MovieReviews/Details" asp-route-id="@item.MovieReviewId">Details</a> |
+                    <a asp-page="./MovieReviews/Delete" asp-route-id="@item.MovieReviewId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

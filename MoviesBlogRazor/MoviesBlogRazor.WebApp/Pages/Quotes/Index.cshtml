@@ -24,7 +24,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model.Quote) {
-        <tr>
+        <tr id="@item.QuoteId">
             <td>
                 @Html.DisplayFor(modelItem => item.MovieTitle)
             </td>

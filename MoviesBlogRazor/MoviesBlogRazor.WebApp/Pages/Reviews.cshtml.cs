@@ -1,4 +1,3 @@
-﻿using System;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MoviesBlogRazor.WebApp.Models;
@@ -7,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace MoviesBlogRazor.WebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class ReviewsModel : PageModel
     {
         private readonly MoviesBlogRazorContext _context;
 
-        public IndexModel(MoviesBlogRazorContext context)
+        public ReviewsModel(MoviesBlogRazorContext context)
         {
             _context = context;
         }
 
-        public IList<Quote> QuoteList { get; set; }
-        public Quote RandomQuote { get; set; }
+        public IList<MovieReview> MovieReview { get; set; }
 
         public async Task OnGetAsync()
         {
-            QuoteList = await _context.Quote.ToListAsync();
-
-            Random random = new Random();
-
-            RandomQuote = QuoteList[random.Next(QuoteList.Count)];
+            MovieReview = await _context.MovieReview.ToListAsync();
         }
     }
 }
