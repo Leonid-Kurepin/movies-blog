@@ -1,5 +1,8 @@
 ﻿@page
 @model MoviesBlogRazor.WebApp.Pages.ReviewsModel
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery AntiForgery;
+
 @{
     ViewData["Title"] = "Мои обзоры";
 }
@@ -9,76 +12,91 @@
 <p>
     <a asp-page="./MovieReviews/Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].MyRating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].Review)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MovieReview[0].ReviewDateCreated)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.MovieReview)
-        {
-            <tr id="@item.MovieReviewId">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MyRating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Review)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReviewDateCreated)
-                </td>
-                <td>
-                    <a asp-page="./MovieReviews/Edit" asp-route-id="@item.MovieReviewId">Edit</a> |
-                    <a asp-page="./MovieReviews/Details" asp-route-id="@item.MovieReviewId">Details</a> |
-                    <a asp-page="./MovieReviews/Delete" asp-route-id="@item.MovieReviewId">Delete</a>
-                </td>
-            </tr>
+
+@foreach (var item in Model.MovieReview)
+{
+    var elementId = "MovieReview" + item.MovieReviewId;
+
+    <div id="@elementId" class="card mb-1" style="max-width: 2000px">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img src="@item.Image" width="100%">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="card-title">@item.Title</h5>
+                        </div>
+                        <div class="col-md-9 text-right">
+                            @*<a asp-page="./MovieReviews/Delete" asp-route-id="@item.MovieReviewId">Delete</a>*@
+                            <a href="javascript:void(0);" onclick="getConfirmation('@item.Title', '@item.MovieReviewId')">Удалить</a>
+                        </div>
+                    </div>
+
+                    <p class="card-text">
+                        IMBD: @item.Rating | MyRating: @item.MyRating
+                    </p>
+                    <p class="card-text" style="font-size: larger">
+                        Описание:
+                    </p>
+                    <p class="card-text" style="text-align: justify">
+                        @item.Description
+                    </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Обзор добавлен @item.ReviewDateCreated.Value.ToString("dd-MM-yyyy")
+                                </small>
+                            </p>
+                        </div>
+                        <div class="col-md-9 text-right">
+                            <button type="button" onclick="">Показать обзор</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        function getConfirmation(title, id) {
+            var retVal = confirm("Do you want to delete review for \"" + title + "\" with id= " + id + "?");
+
+            if (retVal == true) {
+                // ajax here
+                deleteReview(id);
+
+                var elementId = "MovieReview" + id;
+
+                document.getElementById(elementId).outerHTML = "";
+                //document.write ("User wants to continue!");
+                return true;
+            } else {
+                return false;
+            }
         }
-    </tbody>
-</table>
+    </script>
+
+    <script>
+        function deleteReview(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("quote").innerHTML = this.responseText;
+                }
+            };
+
+            var endpoint = "/MovieReviews/Delete/" + id;
+            //xhttp.setRequestHeader("RequestVerificationToken", "@AntiForgery.GetAndStoreTokens(HttpContext).RequestToken");
+            //xhttp.setRequestHeader('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
+            xhttp.open("POST", endpoint, true);
+            xhttp.send();
+        }
+    </script>
+}
+

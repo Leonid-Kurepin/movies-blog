@@ -33,6 +33,8 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
                 return Page();
             }
 
+            MovieReview.ReviewDateCreated = DateTime.Now;
+            
             _context.MovieReviews.Add(MovieReview);
             await _context.SaveChangesAsync();
 

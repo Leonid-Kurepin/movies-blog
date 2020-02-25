@@ -9,6 +9,7 @@ using MoviesBlogRazor.WebApp.Models;
 
 namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
 {
+    [IgnoreAntiforgeryToken(Order = 1001)]
     public class DeleteModel : PageModel
     {
         private readonly MoviesBlogRazor.WebApp.Models.MoviesBlogRazorContext _context;

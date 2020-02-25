@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model MoviesBlogRazor.WebApp.Pages.MovieReviews.DeleteModel
 
 @{
@@ -67,7 +67,7 @@
             @Html.DisplayFor(model => model.MovieReview.ReviewDateCreated)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="MovieReview.MovieReviewId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
