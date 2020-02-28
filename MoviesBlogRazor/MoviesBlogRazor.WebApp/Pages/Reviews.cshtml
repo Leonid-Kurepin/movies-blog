@@ -43,7 +43,10 @@
                     <p class="card-text" style="text-align: justify">
                         @item.Description
                     </p>
-                    <div class="row">
+
+                    @{ var buttonContainerId = elementId + "_ButtonRow"; }
+
+                    <div id="@buttonContainerId" class="row">
                         <div class="col-md-3">
                             <p class="card-text">
                                 <small class="text-muted">
@@ -52,7 +55,7 @@
                             </p>
                         </div>
                         <div class="col-md-9 text-right">
-                            <button type="button" onclick="">Показать обзор</button>
+                            <button type="button" onclick="showFullReview('@item.MovieReviewId')">Показать обзор</button>
                         </div>
                     </div>
                 </div>
@@ -85,16 +88,50 @@
     <script>
         function deleteReview(id) {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("quote").innerHTML = this.responseText;
-                }
-            };
-
             var endpoint = "/MovieReviews/Delete/" + id;
             //xhttp.setRequestHeader("RequestVerificationToken", "@AntiForgery.GetAndStoreTokens(HttpContext).RequestToken");
             //xhttp.setRequestHeader('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
             xhttp.open("POST", endpoint, true);
+            xhttp.send();
+        }
+    </script>
+
+    <script>
+        function showFullReview(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var elementId = "MovieReview" + id;
+                    var cardContainer = document.getElementById(elementId).innerHTML = this.responseText;
+
+                    var buttonRowElementId = "MovieReview" + id + "_ButtonRow";
+                    document.getElementById(buttonRowElementId).innerHTML +=
+                        "<div class=\"col-md-9 text-right\">" + "<button type=\"button\" " +
+                        "onclick=\"hideFullReview('" + id + "\')\">Скрыть обзор</button></div>";
+                }
+            };
+            var endpoint = "/MovieReviews/FullMovieReviewEntity/" + id;
+            xhttp.open("GET", endpoint, true);
+            xhttp.send();
+        }
+    </script>
+
+    <script>
+        function hideFullReview(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var elementId = "MovieReview" + id;
+                    var cardContainer = document.getElementById(elementId).innerHTML = this.responseText;
+
+                    var buttonRowElementId = "MovieReview" + id + "_ButtonRow";
+                    document.getElementById(buttonRowElementId).innerHTML +=
+                        "<div class=\"col-md-9 text-right\">" + "<button type=\"button\" " +
+                        "onclick=\"showFullReview('" + id + "\')\">Показать обзор</button></div>";
+                }
+            };
+            var endpoint = "/MovieReviews/ShortMovieReviewEntity/" + id;
+            xhttp.open("GET", endpoint, true);
             xhttp.send();
         }
     </script>

@@ -20,15 +20,6 @@ namespace MoviesBlogRazor.WebApp.Pages.Quotes
         private static int _currentQuoteId = 1;
         public Quote RandomQuote { get; private set; } 
 
-        //public async Task OnGetAsync(int currentQuoteId)
-        //{
-        //    var anotherQuotesList = await _context.Quote.Where(q => q.QuoteId != currentQuoteId).ToListAsync();
-
-        //    Random random = new Random();
-
-        //    RandomQuote = anotherQuotesList[random.Next(anotherQuotesList.Count)];
-        //}
-
         public async Task OnGetAsync()
         {
             var anotherQuotesList = await _context.Quotes.Where(q => q.QuoteId != _currentQuoteId).ToListAsync();
