@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Главная";
 }
 
 <div class="text-center">
@@ -39,11 +39,8 @@
             </div>
             <hr>
         </div>
-        </div>
+    </div>
 </div>
-
-
-
 
 @*<h2>Ajax</h2>
     <p><button class="btn btn-primary" id="load">Load</button></p>
@@ -54,7 +51,7 @@
     <script>
         function getRandomQuote() {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+            xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("quote").innerHTML = this.responseText;
                 }
@@ -63,13 +60,13 @@
             xhttp.send();
         }
     </script>
-    
+
     <script>
         $(document).ready(function() {
             getRandomQuote();
         });
     </script>
-   
+
     @*<script>
 
             $(function () {
@@ -83,4 +80,3 @@
         </script>*@
 
 }
-
