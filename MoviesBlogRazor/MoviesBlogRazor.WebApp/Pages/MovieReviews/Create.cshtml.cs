@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using MoviesBlogRazor.WebApp.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
 {
@@ -38,7 +35,7 @@ namespace MoviesBlogRazor.WebApp.Pages.MovieReviews
             _context.MovieReviews.Add(MovieReview);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Reviews");
         }
     }
 }

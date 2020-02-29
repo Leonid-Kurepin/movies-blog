@@ -1,0 +1,58 @@
+﻿@page
+@model MoviesBlogRazor.WebApp.Pages.MovieReviews.ListOfShortReviewsModel
+
+@{
+    Layout = null;
+}
+
+
+@foreach (var item in Model.ShortMovieReviewsEntities)
+{
+    var elementId = "MovieReview" + item.MovieReviewId;
+
+    <div id="@elementId" class="card mb-1" style="max-width: 2000px">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img src="@item.Image" width="100%">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="card-title">@item.Title</h5>
+                        </div>
+                        <div class="col-md-9 text-right">
+                            @*<a asp-page="./MovieReviews/Delete" asp-route-id="@item.MovieReviewId">Delete</a>*@
+                            <a href="javascript:void(0);" onclick="getConfirmation('@item.Title', '@item.MovieReviewId')">Удалить</a>
+                        </div>
+                    </div>
+
+                    <p class="card-text">
+                        IMBD: @item.Rating | MyRating: @item.MyRating
+                    </p>
+                    <p class="card-text" style="font-size: larger">
+                        Описание:
+                    </p>
+                    <p class="card-text" style="text-align: justify">
+                        @item.Description
+                    </p>
+
+                    @{ var buttonContainerId = elementId + "_ButtonRow"; }
+
+                    <div id="@buttonContainerId" class="row">
+                        <div class="col-md-3">
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Обзор добавлен @item.ReviewDateCreated.Value.ToString("dd-MM-yyyy")
+                                </small>
+                            </p>
+                        </div>
+                        <div class="col-md-9 text-right">
+                            <button type="button" onclick="showFullReview('@item.MovieReviewId')">Показать обзор</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

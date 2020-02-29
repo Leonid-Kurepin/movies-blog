@@ -9,62 +9,75 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-page="./MovieReviews/Create">Create New</a>
-</p>
 
-@foreach (var item in Model.MovieReview)
-{
-    var elementId = "MovieReview" + item.MovieReviewId;
 
-    <div id="@elementId" class="card mb-1" style="max-width: 2000px">
-        <div class="row no-gutters">
-            <div class="col-md-2">
-                <img src="@item.Image" width="100%">
-            </div>
-            <div class="col-md-10">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h5 class="card-title">@item.Title</h5>
-                        </div>
-                        <div class="col-md-9 text-right">
-                            @*<a asp-page="./MovieReviews/Delete" asp-route-id="@item.MovieReviewId">Delete</a>*@
-                            <a href="javascript:void(0);" onclick="getConfirmation('@item.Title', '@item.MovieReviewId')">Удалить</a>
-                        </div>
-                    </div>
+@Html.Hidden("sortBy", "Title")
+@Html.Hidden("orderBy", "Asc")
 
-                    <p class="card-text">
-                        IMBD: @item.Rating | MyRating: @item.MyRating
-                    </p>
-                    <p class="card-text" style="font-size: larger">
-                        Описание:
-                    </p>
-                    <p class="card-text" style="text-align: justify">
-                        @item.Description
-                    </p>
-
-                    @{ var buttonContainerId = elementId + "_ButtonRow"; }
-
-                    <div id="@buttonContainerId" class="row">
-                        <div class="col-md-3">
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    Обзор добавлен @item.ReviewDateCreated.Value.ToString("dd-MM-yyyy")
-                                </small>
-                            </p>
-                        </div>
-                        <div class="col-md-9 text-right">
-                            <button type="button" onclick="showFullReview('@item.MovieReviewId')">Показать обзор</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row" style="padding: 20px 20px 10px 20px">
+    <div class="col-md-2">
+        Сортировать по:
     </div>
-}
+
+    <label class="col-md-2 radio-inline"><input type="radio" name="RadioSortBy" onchange="sortByRadioButtonChange('Title')" checked> Название</label>
+    <label class="col-md-2 radio-inline"><input type="radio" name="RadioSortBy" onchange="sortByRadioButtonChange('Rating')"> Рейтинг</label>
+    <label class="col-md-2 radio-inline"><input type="radio" name="RadioSortBy" onchange="sortByRadioButtonChange('MyRating')"> Мой рейтинг</label>
+</div>
+
+<div class="row" style="padding: 0 20px 20px 20px">
+    <div class="col-md-2" style="visibility: hidden">
+        Сортировать по:
+    </div>
+
+    <label class="col-md-2 radio-inline"><input type="radio" name="RadioOrderDirection" onchange="orderDirectionRadioButtonChange('Asc')" checked> По возрастанию</label>
+    <label class="col-md-2 radio-inline"><input type="radio" name="RadioOrderDirection" onchange="orderDirectionRadioButtonChange('Desc')"> По убыванию</label>
+    
+    <div class="col-md-6 text-right">
+        <a asp-page="./MovieReviews/Create"> + Добавить обзор</a>
+    </div>
+</div>
+
+<div id="ReviewsListContainer">
+
+</div>
+
 
 @section scripts{
+
+    <script>
+        $(document).ready(function () {
+            refreshListOfReviews($('#sortBy').val(), $('#orderBy').val());
+        });
+    </script>
+
+    <script>
+        function sortByRadioButtonChange(_sortBy) {
+            $('#sortBy').val(_sortBy);
+            refreshListOfReviews($('#sortBy').val(), $('#orderBy').val());
+        }
+    </script>
+
+    <script>
+        function orderDirectionRadioButtonChange(_orderBy) {
+            $('#orderBy').val(_orderBy);
+            refreshListOfReviews($('#sortBy').val(), $('#orderBy').val());
+        }
+    </script>
+
+    <script>
+        function refreshListOfReviews(sortBy, orderBy) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var elementId = "ReviewsListContainer";
+                    document.getElementById(elementId).innerHTML = this.responseText;
+                }
+            };
+            var endpoint = "/MovieReviews/ListOfShortReviews?sortBy=" + sortBy + "&orderBy=" + orderBy;
+            xhttp.open("GET", endpoint, true);
+            xhttp.send();
+        }
+    </script>
 
     <script type="text/javascript">
         function getConfirmation(title, id) {
