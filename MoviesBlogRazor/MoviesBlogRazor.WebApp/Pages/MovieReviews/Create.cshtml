@@ -1,0 +1,86 @@
+﻿@page
+@model MoviesBlogRazor.WebApp.Pages.MovieReviews.CreateModel
+
+@{
+    ViewData["Title"] = "Создание обзора";
+}
+
+<h1>Создание обзора на фильм</h1>
+
+<hr />
+<form method="post" class="col-md-12">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">Название фильма</label>
+            <input asp-for="MovieReview.Title" class="form-control" />
+            <span asp-validation-for="MovieReview.Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">Изображение (ссылка): </label>
+            <input asp-for="MovieReview.Image" class="form-control" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Рейтинг IMBD</label>
+                    <input asp-for="MovieReview.Rating" class="form-control" />
+                    <span asp-validation-for="MovieReview.Rating" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Моя оценка</label>
+                    <input asp-for="MovieReview.MyRating" class="form-control" />
+                    <span asp-validation-for="MovieReview.MyRating" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Жанр</label>
+                    <input asp-for="MovieReview.Genre" class="form-control" />
+                    <span asp-validation-for="MovieReview.Genre" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Дата релиза</label>
+                    <input asp-for="MovieReview.ReleaseDate" class="form-control" />
+                    <span asp-validation-for="MovieReview.ReleaseDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div>Описание фильма</div>
+            <textarea asp-for="MovieReview.Description" class="form-control"></textarea>
+            <span asp-validation-for="MovieReview.Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div>Мой обзор</div>
+        <textarea asp-for="MovieReview.Review" class="form-control"></textarea>
+        <span asp-validation-for="MovieReview.Review" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 text-right" style="padding: 15px 15px 0 0">
+        <input type="submit" value="Добавить обзор" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

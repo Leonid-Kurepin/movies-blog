@@ -1,0 +1,21 @@
+﻿@page
+@model MoviesBlogRazor.WebApp.Pages.Quotes.AnotherRandomQuoteModel
+
+@{
+    Layout = "";
+}
+
+@{
+    var randomQuote = Model.RandomQuote;
+
+    <div>
+        "@Html.DisplayFor(modelItem => randomQuote.Text)"
+    </div>
+
+    <div class="row" style="padding: 15px 0 0 0">
+        <div class="col-7">
+            <div>-- @Html.DisplayFor(modelItem => randomQuote.MovieTitle)</div>
+        </div>
+    </div>
+}
+

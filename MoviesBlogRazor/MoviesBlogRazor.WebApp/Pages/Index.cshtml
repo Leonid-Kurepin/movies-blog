@@ -1,0 +1,82 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Добро пожаловать на мой Киноблог</h1>
+
+    <img src="./images/cinema.jpg" style="width: 100%; padding: 25px;">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-7 text-justify">
+            <p>
+                Привет! Меня зовут Артем!
+            </p>
+            <p>
+                Это мой блог о фильмах. Я очень люблю кино и неплохо в нем разбираюсь (режиссерское образование как никак ;) )
+            </p>
+            <p>
+                Сюда я выкладываю обзоры на просмотренные мной картины.
+                Стараюсь не ленится и делать это почаще.
+                Я всегда выкладываю обзоры по вторникам в 19:00.
+                Но бывает и чаще, если встретится какой-нибудь особо впечатляющий фильмец, что аж невозможно молчать :)
+            </p>
+        </div>
+
+        <div class="col-5">
+            <p style="font-size: larger">Лучшие цитаты из лучших фильмов:</p>
+            <hr>
+            <div id="quote" class="" style="font-style: italic">
+                Quote will appear here on page load and refresh using AJAX
+            </div>
+            <div class=" text-right">
+                <button type="button" onclick="getRandomQuote()">Другая цитата</button>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+@*<h2>Ajax</h2>
+    <p><button class="btn btn-primary" id="load">Load</button></p>
+    <div id="grid"></div>*@
+
+@section scripts{
+
+    <script>
+        function getRandomQuote() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("quote").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Quotes/AnotherRandomQuote", true);
+            xhttp.send();
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            getRandomQuote();
+        });
+    </script>
+
+    @*<script>
+
+            $(function () {
+                $('#load').on('click',
+                    function () {
+                        $('#grid').load('/Quotes/AnotherRandomQuote');
+
+                    });
+            });
+
+        </script>*@
+
+}
